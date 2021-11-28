@@ -1,0 +1,25 @@
+apply plugin : "groovy"
+
+dependencies {
+    implementation fileTree(dir: "lib", includes: ["*.jar"])
+    implementation gradleApi()
+    implementation localGroovy()
+//    implementation "com.android.tools.build:gradle:3.4.2"
+    implementation "com.android.tools.build:gradle:4.0.1"
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    // ASM 相关依赖
+    implementation "org.ow2.asm:asm:9.1"
+    implementation "org.ow2.asm:asm-commons:9.1"
+    implementation "org.javassist:javassist:3.25.0-GA"
+
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter() // Warning: this repository is going to shut down soon
+        mavenCentral()
+        mavenLocal()
+    }
+}
