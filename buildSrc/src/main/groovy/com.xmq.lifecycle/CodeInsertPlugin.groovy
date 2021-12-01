@@ -14,7 +14,7 @@ class CodeInsertPlugin implements Plugin<Project> {
             return
         }
         def android = project.extensions.getByType(AppExtension)
-        android.registerTransform(new CodeLineInsertAsmTransform())
-//        android.registerTransform(new JavassistTransform())
+//        android.registerTransform(new CodeLineInsertAsmTransform())
+        android.registerTransform(new CodeInsertJavassistTransform())
     }
 }

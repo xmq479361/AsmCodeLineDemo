@@ -14,6 +14,12 @@ public class MainActivity extends AppCompatActivity {
         TestUtil.INSTANCE.onCreate();
     }
 
+    byte tet(){
+        return 0;
+    }
+    char test() {
+        return ' ';
+    }
     public void clickLog(View view) {
         TestUtil.INSTANCE.clickLog();
         MockLog.d("clickLog debug");
