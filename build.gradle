@@ -4,6 +4,13 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url file("$rootDir/../repos")
+        }
+    }
+
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.1"
@@ -19,6 +26,9 @@ allprojects {
         google()
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
+        maven {
+            url file("$rootDir/../repos")
+        }
     }
 }
 

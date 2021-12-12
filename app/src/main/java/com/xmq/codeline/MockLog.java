@@ -17,6 +17,7 @@ public final class MockLog {
     String tag;
     public static void d(String message) {
         get(TAG).debug(message);
+//        return 1;
     }
     public static void i(String message) {
         Log.i(TAG, message);

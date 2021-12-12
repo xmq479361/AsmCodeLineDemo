@@ -1,4 +1,4 @@
-package com.xmq.lifecycle
+package com.xmq.lifecycle.core
 
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.Label

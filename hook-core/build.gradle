@@ -1,0 +1,27 @@
+plugins {
+    id 'java-library'
+    id 'maven'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    implementation "org.javassist:javassist:3.25.0-GA"
+}
+
+
+// 添加本地仓库发布
+group = "xmq.hooks.gradle"
+version = "0.1.0-SNAPSHOT"
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri("$rootDir/repos"))
+            pom.artifactId = "hooks"
+        }
+    }
+}

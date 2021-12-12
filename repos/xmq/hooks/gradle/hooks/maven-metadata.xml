@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>xmq.hooks.gradle</groupId>
+  <artifactId>hooks</artifactId>
+  <versioning>
+    <versions>
+      <version>0.1.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20211209162353</lastUpdated>
+  </versioning>
+</metadata>

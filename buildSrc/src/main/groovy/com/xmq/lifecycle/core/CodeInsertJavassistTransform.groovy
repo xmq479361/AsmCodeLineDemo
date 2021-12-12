@@ -1,7 +1,8 @@
-package com.xmq.lifecycle
+package com.xmq.lifecycle.core
 
 import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager
+import com.xmq.lifecycle.core.HookManager
 import javassist.*
 import javassist.expr.ExprEditor
 import javassist.expr.MethodCall
@@ -149,31 +150,37 @@ class CodeInsertJavassistTransform extends Transform {
             System.out.println("\tmethod: ${method.name}, ${method.longName}, ${method.getDeclaringClass().getName()}")
             method.instrument(new ExprEditor() {
                 void edit(MethodCall m) throws CannotCompileException {
-//                            if (m.getClassName().equals("Point")
-//                                    && m.getMethodName().equals("move"))
-//                                m.replace("{ $1 = 0; $_ = $proceed($$); }");
+                    println("\t\tedit: ${m.className}#${m.methodName}, ${m.signature}, ${m.fileName}:${m.lineNumber}," +
+                            "${m.metaClass}, ${m.method.modifiers} ")
+//                    String statement = null
+//                    if (m.className == "com.xmq.codeline.MockLog") {
+//                        if (m.method.parameterTypes.length > 1 && m.method.parameterTypes[1].name == "java.lang.String") {
+////                            if (m.method.parameterTypes[1].name == "java.lang.String")
+//                            println("\t=====" + m.method.parameterTypes[1].name)
+//                            statement = "{ \$2 = \"(" + m.fileName + ":" + m.lineNumber + ")= \" +  \$2; \$proceed(\$\$); }"
+//                        } else if (m.method.parameterTypes[0].name == "java.lang.String") {
+//                            statement = "{ \$1 = \"(" + m.fileName + ":" + m.lineNumber + ")= \" +  \$1; \$proceed(\$\$); }"
+//                        }
+//                    } else if (m.className == "com.xmq.codeline.MainActivity" && m.methodName == "test") {
+////                        statement = "{ \$_ = null; test3(\"invoke test()\"); }"
+//                        statement = "{ \$_ = null; com.xmq.codeline.MockLog.d(\"invoke MainActivity#test()\"); }"
+//                    } else if (m.className == "com.xmq.codeline.TestUtil" && m.methodName == "clickLog") {
+//                        statement = "{ com.xmq.codeline.MockLog.d(\"invoke TestUtil#clickLog()\"); }"
+//                    }
+//                    if (null != statement) {
+//                        println("\t\t\treplace:: " + statement)
+//                        m.replace(statement)
+//                    }
+                    HookManager.execute(m)
 
-                    println("\t\tedit: ${m.className}#${m.methodName}, ${m.signature}, ${m.fileName}, ${m.method.parameterTypes.length} ")
-                    if (m.className == "com.xmq.codeline.MockLog") {
-                        String statement
-                        if (m.method.parameterTypes.length > 1 && m.method.parameterTypes[1].name == "java.lang.String") {
-//                            if (m.method.parameterTypes[1].name == "java.lang.String")
-                            println("\t=====" + m.method.parameterTypes[1].name)
-                            statement = "{ \$2 = \"(" + m.fileName + ":" + m.lineNumber + ")= \" +  \$2; \$proceed(\$\$); }"
-                        } else if (m.method.parameterTypes[0].name == "java.lang.String") {
-                            statement = "{ \$1 = \"(" + m.fileName + ":" + m.lineNumber + ")= \" +  \$1; \$proceed(\$\$); }"
-                        }
-                        m.replace(statement)
-                        println("\t\t==" + statement)
-                    }
                 }
             })
-            if (c.name == "com.xmq.codeline.MainActivity" && method.getDeclaringClass().name == c.name){
-                /**
-                 * 生成代理方法
-                 */
-                delegateOf(c, method)
-            }
+//            if (c.name == "com.xmq.codeline.MainActivity" && method.getDeclaringClass().name == c.name){
+//                /**
+//                 * 生成代理方法
+//                 */
+//                delegateOf(c, method)
+//            }
         }
     }
 

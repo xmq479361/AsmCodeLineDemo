@@ -32,7 +32,25 @@ android {
         jvmTarget = '1.8'
     }
 }
-
+hookGo {
+    addHooker("com.xmq.codeline.MockLog.d\\([a-zA-Z;/]+\\)V") {
+        it.insertBefore("System.out.println(\"Hello MockLog.d\");")
+    }
+    addHooker("com.xmq.codeline.TestUtil.onCreate\\(\\)V") {
+        it.replace("System.out.println(\"Invoke TestUtil.onCreate()\");")
+    }
+//    addHooker("com.xmq.codeline.MainActivity.test\\(*\\)*") {
+////        it.replace("System.out.println(\"Invoke MainActivity.test()\");")
+//        it.replaceParameter(1, "\"replace Parameter from 1\";")
+//    }
+    addHooker("*.MainActivity.test\\(*\\)*") {
+//        it.replace("System.out.println(\"Invoke MainActivity.test()\");")
+        it.replaceParameter(1, "\"replace Parameter from \"+\$1 ;")
+    }
+    addHooker("com.xmq.codeline.MockLog.*\\(*\\)V") {
+        it.calcParameter(1, "\"(\${fileName}:\${line})\" + \$1;")
+    }
+}
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

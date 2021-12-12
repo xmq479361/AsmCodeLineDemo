@@ -1,2 +1,3 @@
 rootProject.name = "AsmCodeLineDemo"
 include ':app'
+include ':hook-core'

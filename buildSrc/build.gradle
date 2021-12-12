@@ -6,6 +6,7 @@ dependencies {
     implementation localGroovy()
 //    implementation "com.android.tools.build:gradle:3.4.2"
     implementation "com.android.tools.build:gradle:4.0.1"
+    implementation "xmq.hooks.gradle:hooks:0.1.0-SNAPSHOT"
 //    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     // ASM 相关依赖
@@ -15,11 +16,17 @@ dependencies {
 
 }
 
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
 allprojects {
     repositories {
         google()
         jcenter() // Warning: this repository is going to shut down soon
         mavenCentral()
         mavenLocal()
+        maven {
+            url file("$rootDir/../repos")
+        }
     }
 }
